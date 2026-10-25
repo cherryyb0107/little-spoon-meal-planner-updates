@@ -1,0 +1,7 @@
+desktop/node_modules/
+desktop/.tooling/
+desktop/release/
+desktop/renderer/
+desktop/.cache/
+*.log
+npm-debug.log*

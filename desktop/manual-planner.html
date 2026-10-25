@@ -1,0 +1,57 @@
+<div id="little-spoon">
+  <header class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">LITTLE SPOON · RECIPE STUDIO</p>
+      <h1>우리 아기 식단,<br>마음에 드는 메뉴로.</h1>
+      <p class="hero-note">월령별 레시피를 살펴보고, 원하는 카드를 달력에 담아 한 달 식단을 직접 꾸려요.</p>
+      <div class="hero-tags"><span>주식 · 간식 분리</span><span>드래그해서 달력에 담기</span><span>이 PC에 자동 저장</span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><span>🥕</span><span>🍐</span><span>🥣</span></div>
+  </header>
+
+  <section class="settings" aria-label="식단 설정">
+    <label>레시피 월령<select id="month-select"></select></label>
+    <label>아기 생년월일 <input id="birth-date" type="date"></label>
+    <label>달력 시작일 <input id="plan-start" type="date"></label>
+    <label>계획 기간<select id="plan-length"><option value="7">1주</option><option value="14">2주</option><option value="21">3주</option><option value="28" selected>4주</option><option value="30">30일</option><option value="31">31일</option></select></label>
+    <label>하루 주식<select id="meal-count"><option value="1">1끼</option><option value="2" selected>2끼</option><option value="3">3끼</option></select></label>
+    <label>하루 간식<select id="snack-count"><option value="0">없음</option><option value="1" selected>1회</option><option value="2">2회</option></select></label>
+    <label>한 끼 기본 완성량(g) <input id="meal-portion" type="number" min="20" max="500" step="5" value="150"></label>
+    <button id="apply-settings" class="button-primary" type="button">달력 적용</button>
+  </section>
+
+  <main class="studio">
+    <section class="library panel" aria-label="월령별 레시피">
+      <div class="panel-heading">
+        <div><p class="eyebrow">BROWSE RECIPES</p><h2><span id="catalog-month-label">6개월</span> 레시피</h2><p id="source-age-note" class="small-note" hidden></p></div>
+        <span class="count-badge" id="catalog-count">0개</span>
+      </div>
+      <div class="category-tabs" role="tablist" aria-label="식사 종류">
+        <button type="button" data-category="all" role="tab" aria-selected="false">🍲 전체 <span id="all-recipe-count">0</span></button>
+        <button type="button" class="active" data-category="lunch" role="tab" aria-selected="true">🍽️ 점심 <span id="lunch-recipe-count">0</span></button>
+        <button type="button" data-category="dinner" role="tab" aria-selected="false">🥣 저녁 <span id="dinner-recipe-count">0</span></button>
+        <button type="button" data-category="snack" role="tab" aria-selected="false">🍪 간식 <span id="snack-recipe-count">0</span></button>
+      </div>
+      <label class="search-box"><span aria-hidden="true">⌕</span><input id="recipe-search" type="search" placeholder="레시피나 재료 찾기" autocomplete="off"><button id="clear-search" type="button" aria-label="검색어 지우기">×</button></label>
+      <p class="library-hint">카드를 끌어 달력의 같은 종류 칸에 놓거나, ‘담기’를 눌러 선택한 날짜에 추가하세요.</p>
+      <details class="ingredient-filter"><summary>제외할 재료 <span id="exclude-count">선택 없음</span></summary><div id="exclude-options" class="exclude-options"></div></details>
+      <div id="recipe-list" class="recipe-list" aria-live="polite"></div>
+      <p id="empty-recipes" class="empty-state" hidden>이 월령에서 찾은 레시피가 없어요.</p>
+    </section>
+
+    <section class="calendar-panel panel" aria-label="직접 짜는 식단 달력">
+      <div class="panel-heading calendar-heading">
+        <div><p class="eyebrow">YOUR MEAL PLAN</p><h2>내 식단 달력</h2><p id="calendar-range" class="calendar-range"></p></div>
+        <div class="calendar-actions"><button id="print-plan" class="button-secondary" type="button">주간 달력 인쇄</button><button id="print-recipes" class="button-secondary" type="button">레시피 인쇄</button><button id="clear-plan" class="button-quiet" type="button">달력 비우기</button></div>
+      </div>
+      <nav id="week-nav" class="week-nav" aria-label="주차 선택"></nav>
+      <div id="calendar-week" class="calendar-week"></div>
+      <div class="calendar-footer"><span>빈 칸에 레시피 카드를 놓으세요. 넣은 메뉴는 자동 저장됩니다.</span><button id="shopping-toggle" type="button" class="text-button">이번 주 장보기 보기 ↓</button></div>
+      <section id="shopping-panel" class="shopping-panel" hidden><div class="shopping-heading"><div><p class="eyebrow">SHOPPING LIST</p><h3>선택한 레시피 재료</h3></div><button id="copy-shopping" class="button-secondary" type="button">목록 복사</button></div><p id="shopping-range" class="small-note"></p><ul id="shopping-list"></ul><p class="small-note">재료량은 원문 수율과 환산 가능한 무게를 바탕으로 한 예상치예요. 알레르기와 아기에게 맞는 질감은 원문 레시피에서 다시 확인하세요.</p></section>
+    </section>
+  </main>
+
+  <dialog id="recipe-dialog" class="recipe-dialog"><button id="close-recipe" class="dialog-close" type="button" aria-label="닫기">닫기 ×</button><div id="recipe-detail"></div></dialog>
+  <section id="print-sheet" hidden></section>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</div>

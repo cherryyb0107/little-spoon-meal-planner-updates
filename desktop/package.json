@@ -1,0 +1,63 @@
+{
+  "name": "little-spoon-meal-planner",
+  "version": "2.0.3",
+  "private": true,
+  "description": "이유식 식단과 장보기 데스크톱 앱",
+  "main": "main.js",
+  "scripts": {
+    "build:renderer": "node build-app.js",
+    "start": "npm run build:renderer && electron .",
+    "dist:win": "npm run build:renderer && electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "26.18.0"
+  },
+  "dependencies": {
+    "electron-updater": "6.8.11"
+  },
+  "build": {
+    "appId": "com.littlespoon.babymealplanner",
+    "productName": "작은 한 끼",
+    "asar": true,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "cherryyb0107",
+        "repo": "little-spoon-meal-planner-updates",
+        "releaseType": "release"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app-config.json",
+      "persist-settings.js",
+      "desktop-ui.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "작은 한 끼",
+      "artifactName": "${productName}-설치-${version}-${arch}.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-무설치-${version}-${arch}.${ext}"
+    }
+  }
+}

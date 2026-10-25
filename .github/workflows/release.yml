@@ -1,0 +1,31 @@
+name: Build and publish Windows app
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Install dependencies
+        working-directory: desktop
+        run: npm ci
+      - name: Build renderer
+        working-directory: desktop
+        run: npm run build:renderer
+      - name: Publish release
+        working-directory: desktop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx electron-builder --win nsis --publish always
