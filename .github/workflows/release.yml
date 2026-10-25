@@ -28,4 +28,18 @@ jobs:
         working-directory: desktop
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx electron-builder --win nsis --publish always
+        shell: pwsh
+        run: |
+          npx electron-builder --win nsis --publish never
+          $version = $env:GITHUB_REF_NAME -replace '^v', ''
+          $installer = Get-ChildItem release -Filter "*설치-$version-x64.exe" | Where-Object { $_.Name -notlike '*uninstaller*' } | Select-Object -First 1
+          if (-not $installer) { throw "Windows installer for version $version was not created." }
+          $asset = "little-spoon-meal-planner-setup-$version.exe"
+          Copy-Item $installer.FullName "release/$asset"
+          Copy-Item "$($installer.FullName).blockmap" "release/$asset.blockmap"
+          gh release create $env:GITHUB_REF_NAME `
+            "release/$asset" `
+            "release/$asset.blockmap" `
+            "release/latest.yml" `
+            --title $version `
+            --notes "작은 한 끼 $version 자동 업데이트"

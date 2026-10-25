@@ -8,6 +8,6 @@ To publish a future version:
 2. Commit and push the changes to `main`.
 3. Create and push the matching tag, for example `v2.0.4`.
 
-The GitHub Actions workflow builds the Windows installer and publishes the update metadata and installer to a GitHub Release. The installed app applies later releases without downloading a separate installer manually.
+The GitHub Actions workflow builds the Windows installer, update metadata, and block map, then uploads all three to a GitHub Release. The installed app applies later releases without downloading a separate installer manually.
 
 The first version that includes this update feed must be installed once because earlier builds have no update feed configured.
