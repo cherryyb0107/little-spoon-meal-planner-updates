@@ -1,6 +1,6 @@
 {
   "name": "little-spoon-meal-planner",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "private": true,
   "description": "이유식 식단과 장보기 데스크톱 앱",
   "main": "main.js",
